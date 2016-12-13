@@ -18,11 +18,13 @@ class CatView(View):
 
 
 class TurtleView(View):
-    def get(self, request):
-
+    def get_turtle_descriptions(self):
+        # Get turtle descriptions from the API, deserialize, and return as python list
         api_response = requests.get('http://localhost:8001/turtle-api/descriptions')
+        return api_response.json()['turtles']
 
+    def get(self, request):
         return render(request, 'turtles.html', {
             'page': 'turtles',
-            'data': api_response.json()['turtles']
+            'data': self.get_turtle_descriptions()
         })
