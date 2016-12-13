@@ -17,6 +17,6 @@ from django.conf.urls import url, include
 
 
 urlpatterns = [
-    url(r'^turtle-api', include('turtleapi.urls')),
+    url(r'^turtle-api/', include('turtleapi.urls')),
     url(r'', include('kickasspets.urls')),
 ]

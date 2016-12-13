@@ -17,5 +17,5 @@ from django.conf.urls import url
 from turtleapi.views import SlowApiCall
 
 urlpatterns = [
-    url(r'/descriptions$', SlowApiCall.as_view()),
+    url(r'descriptions$', SlowApiCall.as_view()),
 ]
