@@ -105,6 +105,20 @@
             text-align: justify;
             font-size: 0.7em;
         }
+
+        @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+        .loading-icon {
+            display: inline !important;
+            height: 50px !important;
+            width: 50px !important;
+            vertical-align: middle;
+            -webkit-animation:spin 3s linear infinite;
+            -moz-animation:spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
     </style>
 </head>
 

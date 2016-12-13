@@ -1,6 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <script src="/static/js/jquery-3.1.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var pollTimer = setInterval(function(){
+                $.ajax({
+                    url: "http://localhost:8001/status/{{ task_id }}",
+                    dataType: "json"
+                }).done(function(response) {
+                    if (response.complete) {
+                        // Got it!
+
+                        // Cancel the polling loop
+                        clearInterval(pollTimer);
+
+                        // Fill in our turtle descriptions
+                        $.each(response.data, function(turtleIdx, turtleDesc) {
+                            $('.turtle-detail').eq(turtleIdx).html(turtleDesc);
+                        })
+                    }
+                });
+            }, 500);
+        });
+    </script>
+
     <h1>Turtles</h1>
 
     <table class="pet-table">
@@ -11,7 +35,7 @@
                     Xander
                 </div>
                 <div class="turtle-detail">
-                    {{ data.0 }}
+                    <img src="/static/images/turtle.ico" class="loading-icon"> Loading...
                 </div>
             </td>
             <td>
@@ -20,7 +44,7 @@
                     Rigo
                 </div>
                 <div class="turtle-detail">
-                    {{ data.1 }}
+                    <img src="/static/images/turtle.ico" class="loading-icon"> Loading...
                 </div>
 
             </td>
@@ -30,7 +54,7 @@
                     Margie
                 </div>
                 <div class="turtle-detail">
-                    {{ data.2 }}
+                    <img src="/static/images/turtle.ico" class="loading-icon"> Loading...
                 </div>
             </td>
         </tr>

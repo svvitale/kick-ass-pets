@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url
-from kickasspets.views import DogView, CatView, TurtleView
+from kickasspets.views import DogView, CatView, TurtleView, StatusView
 
 
 urlpatterns = [
@@ -22,4 +22,6 @@ urlpatterns = [
     url(r'^dogs$', DogView.as_view()),
     url(r'^cats$', CatView.as_view()),
     url(r'^turtles$', TurtleView.as_view()),
+
+    url(r'^status/(?P<task_id>[a-f\d\-]+)', StatusView.as_view())
 ]

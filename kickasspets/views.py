@@ -1,6 +1,10 @@
+from __future__ import absolute_import, unicode_literals
+from django.http import HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views import View
-import requests
+from . import tasks
+from celery.result import AsyncResult
 
 
 class DogView(View):
@@ -18,13 +22,31 @@ class CatView(View):
 
 
 class TurtleView(View):
-    def get_turtle_descriptions(self):
-        # Get turtle descriptions from the API, deserialize, and return as python list
-        api_response = requests.get('http://localhost:8001/turtle-api/descriptions')
-        return api_response.json()['turtles']
-
     def get(self, request):
+        task = tasks.get_turtle_descriptions.delay()
+
         return render(request, 'turtles.html', {
             'page': 'turtles',
-            'data': self.get_turtle_descriptions()
+            'task_id': task.id
+        })
+
+
+class StatusView(View):
+    def get(self, request, task_id):
+
+        # Get task by ID
+        task_result = AsyncResult(task_id)
+
+        # Check if task is complete
+        task_is_complete = task_result.ready()
+
+        if task_is_complete:
+            # Retrieve response data
+            data = task_result.get()
+        else:
+            data = None
+
+        return JsonResponse({
+            'complete': task_is_complete,
+            'data': data
         })
