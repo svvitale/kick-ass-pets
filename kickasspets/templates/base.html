@@ -1,0 +1,138 @@
+<html>
+
+<head>
+    <title>Kick Ass Pets</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+
+    <link href='https://fonts.googleapis.com/css?family=Carrois+Gothic' rel='stylesheet' type='text/css'>
+
+    <style>
+        @font-face {
+          font-family: 'Share Tech';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Share Tech Regular'), local('ShareTech-Regular'), url('/static/fonts/Share Tech.woff2') format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+
+        html, body {
+            font-family: 'Share Tech', sans-serif;
+            font-size: 1.2em;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            color: #777777;
+        }
+
+        a, a:visited, a:active {
+            color: #777777;
+        }
+
+        a:hover {
+            color: cadetblue;
+        }
+
+        a.nav-active:hover {
+            color: white;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 5px;
+        }
+
+        .site-container {
+            display: flex;
+        }
+
+        .nav-column {
+
+        }
+
+        .nav-link {
+            display: block;
+            padding: 10px 20px;
+        }
+
+        .nav-active {
+            background-color: cadetblue;
+            color: white !important;
+        }
+
+        .logo-container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .content-column {
+            flex: 1;
+            font-size: 1.2em;
+            padding: 40px 60px;
+        }
+
+        .vignette {
+            width: 200px;
+            border-radius: 200px;
+            border: 1px solid #888888;
+            box-shadow: 0 0 2px #888888;
+        }
+
+        .pet-table td {
+            font-size: 2.0em;
+            padding: 40px;
+            max-width: 400px;
+            vertical-align: top;
+        }
+
+        .pet-table img {
+            display: block;
+            object-fit: cover; /* Do not scale the image */
+            object-position: center; /* Center the image within the element */
+            height: 200px;
+            width: 200px;
+        }
+
+        .turtle-detail {
+            margin-top: 10px;
+            text-align: justify;
+            font-size: 0.7em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="site-container">
+        <div class="nav-column">
+            <div class="logo-container">
+                <img class="vignette" src="/static/images/dog.png">
+                <h2>Kick Ass Pets</h2>
+            </div>
+            <ul>
+                <li>
+                    <a href="/dogs" class="nav-link {% if page == 'dogs' %}nav-active{% endif %}">Dogs</a>
+                </li>
+                <li>
+                    <a href="/cats" class="nav-link {% if page == 'cats' %}nav-active{% endif %}">Cats</a>
+                </li>
+                <li>
+                    <a href="/turtles" class="nav-link {% if page == 'turtles' %}nav-active{% endif %}">Turtles</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content-column">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+
+</html>
